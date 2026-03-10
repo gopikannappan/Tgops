@@ -247,15 +247,6 @@ Example audit entry:
 
 ---
 
-## Commercial
-
-The open source CLI is MIT-licensed forever.
-
-- **Migration-as-a-Service**: Contact [maintainer] for a managed migration engagement ($300–800 per migration). We handle auth, execution, and post-migration verification.
-- **Pro UI dashboard**: Coming soon — web interface for managing migrations and admin rosters across multiple organizations.
-
----
-
 ## Contributing
 
 1. Fork the repository
