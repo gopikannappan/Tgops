@@ -1,0 +1,30 @@
+site_name: TGOps
+site_description: Self-hostable Telegram community ops toolkit
+site_url: https://tgops.dev
+repo_url: https://github.com/[org]/tgops
+repo_name: tgops
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Configuration: configuration.md
+  - Commands: commands.md
+  - REST API: api.md
+  - Commercial: commercial.md
+  - FAQ: faq.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+  - tables

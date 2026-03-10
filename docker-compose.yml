@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  tgops:
+    build: .
+    env_file: .env
+    volumes:
+      - tgops_data:/root/.tgops
+    restart: unless-stopped
+
+  tgops-api:
+    build: .
+    env_file: .env
+    volumes:
+      - tgops_data:/root/.tgops
+    command: ["serve", "--host", "0.0.0.0", "--port", "8080"]
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    profiles:
+      - api
+
+volumes:
+  tgops_data:

@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install hydrogram typer rich pydantic-settings pyyaml aiofiles httpx pytest pytest-asyncio
+
+      - name: Run tests
+        run: pytest tests/unit/ -v
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/tgops:${{ github.ref_name }} .
+          docker tag ghcr.io/${{ github.repository_owner }}/tgops:${{ github.ref_name }} ghcr.io/${{ github.repository_owner }}/tgops:latest
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/tgops:${{ github.ref_name }}
+          docker push ghcr.io/${{ github.repository_owner }}/tgops:latest
